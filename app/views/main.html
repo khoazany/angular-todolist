@@ -1,0 +1,85 @@
+  <div class="container" ng-cloak>
+    <div class="row" ng-if="count() > 0">
+      <div class="col-sm-6">  
+        <input class="form-control" type="text" ng-model="searchKey" placeholder="Search for items">
+      </div>
+      <div class="pull-right" ng-bind-template="Number of items: {{count()}}"></div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <h2>What need to be done</h2>
+      </div>
+
+      <div ng-switch on="data.mode">
+
+        <div ng-switch-when="Editable List">
+          <div ui-sortable ng-model="todos">
+            <div class="row" ng-repeat-start="todo in todos | checkedItems:showComplete | searchResults:searchKey" ng-bind-template="Item number: {{$index+1}}">
+            </div>
+            <div class="row" ng-bind-template="{{todo | json}}"></div>
+            <div class= "row" ng-repeat-end style="cursor: move;">
+              <p class="input-group">
+                <input type="text" ng-model="todo.name" ng-mouseenter="changeColor('red')" ng-mouseleave="changeColor('black')" ng-style="{'color': data.inputColor}" class="form-control">
+                <span class="input-group-btn">
+                  <button class="btn btn-danger" ng-click="removeTodo($index)" aria-label="Remove">X
+                  </button>
+                  <input type="checkbox" ng-model="todo.done">
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div ng-switch-when="List">
+          <ul ui-sortable ng-model="todos">
+            <li ng-repeat="todo in todos | checkedItems:showComplete | searchResults:searchKey" style="cursor: move;" ng-cloak>
+              {{todo.name}}
+              <input class="pull-right" type="checkbox" ng-model="todo.done">
+            </li>
+          </ul>
+        </div>
+
+        <div ng-switch-default>
+          <div class="alert alert-info">Select another option to display a layout</div>
+        </div>
+
+        <div class="row">
+          <form action="" role="form" ng-submit="addToDo()">
+            <div class="input-group">
+              <input class="form-control" type="text" ng-model="td" placeholder="What need to be done?">
+              <span class="input-group-btn">
+                <button ng-disabled="count < 5" type="submit" class="btn btn-primary">Add</button>
+              </span>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+    <br/>
+    <div class="container">
+      <div class="row">
+        <button class="btn btn-danger" ng-click="clearData()">Clear Data</button>
+        <div class="checkbox-inline">
+          <label><input type="checkbox" ng-model="showComplete"> Show Complete</label>
+        </div>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="well">
+      <div class="radio" ng-repeat="button in ['None', 'Editable List', 'List']">
+        <label>
+          <input type="radio" ng-model="data.mode"
+          value="{{button}}" ng-checked="$index == 1" ng-cloak />
+          {{button}}
+        </label>
+      </div>
+    </div>
+
+    <div class="test btn btn-success">Test</div>
+    <div class="test2 btn btn-success">Test2</div>
+
+    <br/>
+  </div>

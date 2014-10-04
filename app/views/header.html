@@ -1,0 +1,14 @@
+<div class="status">
+    <div ng-hide="error == ''" ng-model="error" class="alert alert-danger">{{error}}</div>
+    <div ng-hide="success == ''" ng-model="success" class="alert alert-success">{{success}}</div>
+  </div>
+
+<div class="header">
+    <ul class="nav nav-pills pull-right">
+      <li><a>Time: {{clock | date:'medium'}}</a></li>
+      <li><a ng-href="#">Home</a></li>
+      <li><a ng-href="/#/email">Email</a></li>
+      <li><a ng-href="#">Contact</a></li>
+    </ul>
+    <h3 class="text-muted">Today's Todo List</h3>
+</div>
